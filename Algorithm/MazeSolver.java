@@ -146,3 +146,63 @@ public class App {
     }
 }
 
+// MazeSolver 클래스 ArrayList 대신 Stack 활용
+
+public class MazeSolver {
+    int[][] map;
+    Position start;
+    Position end;
+    Position current;
+
+    public MazeSolver(int[][] map, Position start, Position end) {
+        this.map = map;
+        this.start = start;
+        this.end = end;
+        this.current = new Position(start.getRow(), start.getCol());
+    }
+
+    public boolean canMove(int row, int col) {
+        if (row >= this.map.length || row < 0) {
+            return false;
+        }
+        if (col >= this.map[row].length || col < 0) {
+            return false;
+        }
+        return this.map[row][col] == 0;
+    }
+
+    public boolean canMove(Position p) {
+        return this.canMove(p.getRow(), p.getCol());
+    }
+
+    public ArrayList<Position> findExit() {
+        Stack<Position> path = new Stack<>();
+        Stack<Position> moves = new Stack<>();
+        moves.push(this.current);
+
+        while (!moves.isEmpty()) {
+            Position current = moves.pop();
+
+            if (current.equals(this.end)) {
+                path.add(current);
+                System.out.println("true");
+                return new ArrayList<>(path);
+            }
+
+            this.map[current.getRow()][current.getCol()] = 2; // Mark as visited
+
+            int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+            for (int[] direction : directions) {
+                Position next = new Position(current.getRow() + direction[0], current.getCol() + direction[1]);
+                if (canMove(next)) {
+                    moves.push(next);
+                    path.push(current);
+                }
+            }
+        }
+
+        System.out.println("false");
+        return new ArrayList<>(); // No path found
+    }
+}
+

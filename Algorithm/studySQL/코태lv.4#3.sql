@@ -7,6 +7,7 @@ CAR_RENTAL_COMPANY_DISCOUNT_PLAN 테이블에서 자동차 종류가 '세단' �
 자동차 종류가 '세단' 또는 'SUV' 인 자동차 중 2022년 11월 1일부터 2022년 11월 30일까지 대여 가능하고 30일간의 대여 금액이 50만원 이상 200만원 미만인 자동차
 -- 코드를 입력하세요
 */
+
 # SELECT 
 #     C.CAR_ID, C.CAR_TYPE, ROUND(93/100 * C.DAILY_FEE) AS FEE 
 # FROM CAR_RENTAL_COMPANY_CAR C
